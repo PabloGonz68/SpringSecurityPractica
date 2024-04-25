@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado personas</title>
+    <!-- Agregar referencia a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            text-align: center;
+        }
+        .table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Listado de personas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--TODO LO QUE LLEVE TH ES DE THYMELEAF-->
+        <tr th:each="persona : ${personasLista}">
+            <td th:text="${persona.id}"></td>
+            <td th:text="${persona.nombre}"></td>
+            <td th:text="${persona.edad}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{/personas/editar/{id}(id=${persona.id})}">Editar</a>
+                <a class="btn btn-danger" th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="/personas/nueva">Crear nueva persona</a>
+</div>
+
+<!-- Agregar referencia a Bootstrap JS (opcional, solo si necesitas funcionalidad específica de Bootstrap) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de personas</title>
+    <!-- Agregar referencia a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            text-align: center;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <form th:object="${persona}" th:action="${accion}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <h1>Formulario de personas</h1>
+        <div class="form-group row">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="edad" class="col-sm-2 col-form-label">Edad:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="edad" th:field="*{edad}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </form>
+    <div class="form-group row">
+        <div class="col-sm-9 offset-sm-2">
+            <a href="/personas" class="btn btn-secondary">Volver al listado de personas</a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
