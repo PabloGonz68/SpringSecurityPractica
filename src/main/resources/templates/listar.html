@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Listado personas</title>
@@ -27,7 +28,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
-            <th>Acciones</th>
+            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -36,14 +37,16 @@
             <td th:text="${persona.id}"></td>
             <td th:text="${persona.nombre}"></td>
             <td th:text="${persona.edad}"></td>
-            <td>
+            <td sec:authorize="hasRole('ADMIN')">
                 <a class="btn btn-primary" th:href="@{/personas/editar/{id}(id=${persona.id})}">Editar</a>
                 <a class="btn btn-danger" th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <div sec:authorize="hasRole('ADMIN')">
     <a class="btn btn-success" href="/personas/nueva">Crear nueva persona</a>
+    </div>
 </div>
 
 <!-- Agregar referencia a Bootstrap JS (opcional, solo si necesitas funcionalidad específica de Bootstrap) -->
