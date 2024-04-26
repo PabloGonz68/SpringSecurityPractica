@@ -1,9 +1,11 @@
 package com.pepe.primeraweb.com.pepe.primerawebspring.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name="users")
+@Data
 public class User {
 
     @Id
