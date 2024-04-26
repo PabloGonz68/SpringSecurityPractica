@@ -38,7 +38,8 @@ public class PersonaController {
     @GetMapping("/editar/{id}")//Al ir a esta ventana se recogerá el id de la persona
     public String formularioEditarPersona(@PathVariable Long id, @ModelAttribute Persona persona, Model model){
         //@PathVariable nos permite acceder a un row de la BBDD por parametros y se usa un modelAttribute para coger el resto de datos
-        model.addAttribute("persona", persona);
+        Persona persona1 = personaService.obtenerPorId(id);
+        model.addAttribute("persona", persona1);
         model.addAttribute("accion", "/personas/editar/"+id);//su atributo y la accion que hará
         return "form";
     }
