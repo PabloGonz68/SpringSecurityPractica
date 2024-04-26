@@ -1,12 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Acceso denegado</title>
+    <!-- Agregar referencia a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agregar referencia a Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        .card-header {
+            text-align: center;
+            background-color: #dc3545;
+            color: #ffffff;
+            border-radius: 20px 20px 0 0;
+            padding: 30px 0;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+        .card-body {
+            text-align: center;
+        }
+        .icon {
+            font-size: 96px;
+            color: #dc3545;
+            margin-bottom: 40px;
+        }
+        .btn {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 10px;
+            padding: 20px 40px;
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-<h2>Lo sentimos, no tienes permiso para entrar a esta ventana</h2>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Acceso denegado
+        </div>
+        <div class="card-body">
+            <div class="icon">
+                <i class="fas fa-ban"></i>
+            </div>
+            <p style="font-size: 24px;">Lo sentimos, no tienes permiso para entrar a esta ventana</p>
+            <a href="/personas" class="btn">Volver al inicio</a>
+        </div>
+    </div>
+</div>
+
+<!-- Agregar referencia a Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
