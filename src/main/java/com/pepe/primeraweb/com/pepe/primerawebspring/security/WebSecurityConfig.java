@@ -81,9 +81,10 @@ return new InMemoryUserDetailsManager(user1, user2);
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(
-                auth -> auth.requestMatchers("/personas").permitAll()
-                        .requestMatchers("/personas/nueva").hasAnyRole("ADMIN")
-                        .requestMatchers("/personas/editar/*", "/personas/eliminar/*").hasAnyRole("ADMIN")//el * es una variable
+                auth -> auth.requestMatchers("/personas").hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")
+                        .requestMatchers("/personas/nueva").hasAnyAuthority("ADMIN", "CREATOR")
+                        .requestMatchers("/personas/editar/*").hasAnyAuthority("ADMIN", "EDITOR")
+                        .requestMatchers("/personas/editar/*", "/personas/eliminar/*").hasAnyAuthority("ADMIN")//el * es una variable
                         .anyRequest().authenticated()
         ).formLogin(form -> form.loginPage("/login").permitAll()).logout(l -> l.permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403"));
     return  httpSecurity.build();

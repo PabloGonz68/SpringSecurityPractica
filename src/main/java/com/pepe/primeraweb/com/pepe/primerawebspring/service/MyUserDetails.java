@@ -1,5 +1,6 @@
 package com.pepe.primeraweb.com.pepe.primerawebspring.service;
 
+import com.pepe.primeraweb.com.pepe.primerawebspring.entities.Role;
 import com.pepe.primeraweb.com.pepe.primerawebspring.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,18 +9,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 public class MyUserDetails implements UserDetails {
     private User user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-        return Arrays.asList(authority);
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities =new ArrayList<>();
 
+        for (Role role:roles){
+        authorities.add(new SimpleGrantedAuthority(role.getNombre()));
+        }
+return authorities;
     }
 
     @Override

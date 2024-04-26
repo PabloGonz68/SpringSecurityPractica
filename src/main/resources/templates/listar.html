@@ -34,8 +34,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="logout-form">
-        <p th:inline="text">Bienvenido <span sec:authentication="name"></span></p>
+    <div sec:authorize="isAuthenticated()" class="logout-form">
+        <b><p th:inline="text">Bienvenido <span sec:authentication="name"></span></p></b>
+        &nbsp;
+        <b><p th:inline="text">Eres un <span sec:authentication="principal.authorities"></span></p></b>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Cerrar Sesión" class="btn btn-danger mb-3">
         </form>
@@ -47,7 +49,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
-            <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -56,14 +58,14 @@
             <td th:text="${persona.id}"></td>
             <td th:text="${persona.nombre}"></td>
             <td th:text="${persona.edad}"></td>
-            <td sec:authorize="hasRole('ADMIN')">
+            <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
                 <a class="btn btn-primary" th:href="@{/personas/editar/{id}(id=${persona.id})}">Editar</a>
-                <a class="btn btn-danger" th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger" th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <div sec:authorize="hasRole('ADMIN')">
+    <div sec:authorize="hasAnyAuthority('ADMIN', 'CREATOR')">
         <a class="btn btn-success" href="/personas/nueva">Crear nueva persona</a>
     </div>
 </div>
