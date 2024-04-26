@@ -7,19 +7,28 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration//Registra Beans
 public class WebSecurityConfig {
 
+    //codificador
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
         UserDetails user1 = User.builder().username("user1")
-                .password("{bcrypt}$2a$10$qUpbLfpAqiq/..GqLV0GxuxZ7hq7WKFbeMjGgXzcOuofxD4CKDVNW").roles("USER").build();
+                .password("$2a$10$qUpbLfpAqiq/..GqLV0GxuxZ7hq7WKFbeMjGgXzcOuofxD4CKDVNW").roles("USER").build();
 
         UserDetails user2 = User.builder().username("admin")
-                .password("{bcrypt}$2a$10$qUpbLfpAqiq/..GqLV0GxuxZ7hq7WKFbeMjGgXzcOuofxD4CKDVNW").roles("ADMIN").build();
+                .password("$2a$10$qUpbLfpAqiq/..GqLV0GxuxZ7hq7WKFbeMjGgXzcOuofxD4CKDVNW").roles("ADMIN").build();
 return new InMemoryUserDetailsManager(user1, user2);
     }
 
@@ -31,7 +40,7 @@ return new InMemoryUserDetailsManager(user1, user2);
                         .requestMatchers("/personas/nueva").hasAnyRole("ADMIN")
                         .requestMatchers("/personas/editar/*", "/personas/eliminar/*").hasAnyRole("ADMIN")//el * es una variable
                         .anyRequest().authenticated()
-        ).httpBasic(Customizer.withDefaults()).exceptionHandling(e -> e.accessDeniedPage("/403"));
+        ).formLogin(form -> form.loginPage("/login").permitAll()).logout(l -> l.permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403"));
     return  httpSecurity.build();
     }
 

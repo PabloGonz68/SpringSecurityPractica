@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
- xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Listado personas</title>
@@ -9,18 +8,38 @@
     <!-- Estilos personalizados -->
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 70px;
         }
         .container {
             text-align: center;
+            position: relative;
+        }
+        .logout-form {
+            position: absolute;
+            top: -20px;
+            right: -200px;
+
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .table {
             margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
 <div class="container">
+    <div class="logout-form">
+        <p th:inline="text">Bienvenido <span sec:authentication="name"></span></p>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Cerrar Sesión" class="btn btn-danger mb-3">
+        </form>
+    </div>
     <h1>Listado de personas</h1>
     <table class="table table-striped">
         <thead>
@@ -45,7 +64,7 @@
         </tbody>
     </table>
     <div sec:authorize="hasRole('ADMIN')">
-    <a class="btn btn-success" href="/personas/nueva">Crear nueva persona</a>
+        <a class="btn btn-success" href="/personas/nueva">Crear nueva persona</a>
     </div>
 </div>
 
